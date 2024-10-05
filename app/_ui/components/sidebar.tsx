@@ -49,8 +49,8 @@ function UserDropdownMenu({ loggedInUser }: { loggedInUser: User }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="button" variant="ghost" className="my-3 px-3 space-x-2 justify-start h-auto">
-          <Avatar className="w-6 h-6">
+        <Button type="button" variant="ghost" className="my-3 h-auto justify-start space-x-2 px-3">
+          <Avatar className="h-6 w-6">
             <AvatarImage src="avatar.png" alt={loggedInUser.name} />
             <AvatarFallback delayMs={250}>{avatarFallbackText}</AvatarFallback>
           </Avatar>
@@ -69,7 +69,7 @@ function UserDropdownMenu({ loggedInUser }: { loggedInUser: User }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <button type="submit" className="w-full h-9">
+            <button type="submit" className="h-9 w-full">
               <LogOutIcon size={16} className="mr-2" />
               <span>Sign Out</span>
             </button>
@@ -95,14 +95,14 @@ function NavigationList() {
           "flex items-center space-x-2 h-10 px-3 rounded-md text-primary hover:bg-accent focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none",
           {
             "bg-accent": isCurrentPage,
-          }
+          },
         );
 
         return (
           <li key={key}>
             <Link href={sidebarItem.href} className={linkStyles}>
               <Icon size={16} />
-              <span className="capitalize text-sm">{sidebarItem.label}</span>
+              <span className="text-sm capitalize">{sidebarItem.label}</span>
             </Link>
           </li>
         );
@@ -118,7 +118,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="bg-primary-foreground max-w-56 px-4 w-full h-full">
+    <div className="hidden h-full w-full max-w-56 bg-primary-foreground px-4 md:block">
       <UserDropdownMenu loggedInUser={loggedInUser} />
       <NavigationList />
     </div>
