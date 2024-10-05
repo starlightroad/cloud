@@ -6,10 +6,10 @@ import clsx from "clsx";
 import {
   BookmarkIcon,
   ChevronDown,
-  FolderIcon,
   HomeIcon,
   LogOutIcon,
   SettingsIcon,
+  ShapesIcon,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -39,7 +39,7 @@ const sidebarItems = [
   {
     label: "categories",
     href: navigationRoutes.categories,
-    icon: FolderIcon,
+    icon: ShapesIcon,
   },
 ];
 
