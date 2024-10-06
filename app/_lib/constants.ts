@@ -5,3 +5,5 @@ export const PUBLIC_ROUTES = [
   navigationRoutes.login,
   navigationRoutes.register,
 ];
+
+export const G_FAVICON_URL = "https://s2.googleusercontent.com/s2/favicons";
