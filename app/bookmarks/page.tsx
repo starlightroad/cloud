@@ -49,6 +49,8 @@ export default function Bookmarks({ searchParams }: { searchParams?: { query?: s
 
   const totalBookmarks = filteredBookmarks.length;
 
+  const hasBookmarks = !!filteredBookmarks.length;
+
   return (
     <main className="w-full py-4">
       <section className="px-4">
@@ -59,34 +61,39 @@ export default function Bookmarks({ searchParams }: { searchParams?: { query?: s
         <div className="md:max-w-80">
           <Search placeholder="Search" />
         </div>
-        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredBookmarks.map((bookmarkItem) => {
-            const key = `bookmark-${bookmarkItem.label}`;
-            const faviconUrl = getFaviconFromWebsite(bookmarkItem.href, 64);
 
-            return (
-              <li key={key} className="relative">
-                <BookmarkMenu bookmark={bookmarkItem} />
-                <Link
-                  href={bookmarkItem.href}
-                  target="_blank"
-                  className="block h-36 rounded-2xl bg-accent p-6"
-                >
-                  <div className="flex items-center justify-between">
-                    <Image
-                      src={faviconUrl}
-                      alt={`The brand logo for ${bookmarkItem.label}`}
-                      width={20}
-                      height={20}
-                    />
-                    <EllipsisVerticalIcon size={20} className="hidden" />
-                  </div>
-                  <p className="mt-4 font-medium">{bookmarkItem.label}</p>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {!hasBookmarks && <p className="my-6 text-muted-foreground">No bookmarks were found.</p>}
+
+        {hasBookmarks && (
+          <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredBookmarks.map((bookmarkItem) => {
+              const key = `bookmark-${bookmarkItem.label}`;
+              const faviconUrl = getFaviconFromWebsite(bookmarkItem.href, 64);
+
+              return (
+                <li key={key} className="relative">
+                  <BookmarkMenu bookmark={bookmarkItem} />
+                  <Link
+                    href={bookmarkItem.href}
+                    target="_blank"
+                    className="block h-36 rounded-2xl bg-accent p-6"
+                  >
+                    <div className="flex items-center justify-between">
+                      <Image
+                        src={faviconUrl}
+                        alt={`The brand logo for ${bookmarkItem.label}`}
+                        width={20}
+                        height={20}
+                      />
+                      <EllipsisVerticalIcon size={20} className="hidden" />
+                    </div>
+                    <p className="mt-4 font-medium">{bookmarkItem.label}</p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </section>
     </main>
   );
