@@ -44,10 +44,10 @@ function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
 }
 
 export default function Bookmarks({ searchParams }: { searchParams?: { query?: string } }) {
-  const totalBookmarks = getTotalBookmarks();
-
   const searchQuery = searchParams?.query || "";
   const filteredBookmarks = getFilteredBookmarks(searchQuery);
+
+  const totalBookmarks = filteredBookmarks.length;
 
   return (
     <main className="w-full py-4">
