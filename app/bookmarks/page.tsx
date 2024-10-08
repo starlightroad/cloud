@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { EllipsisVerticalIcon, ExternalLinkIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { getFaviconFromWebsite } from "@/app/_lib/utils";
-import { bookmarks } from "@/app/_data/placeholder-data";
 import type { Bookmark } from "@/app/_lib/definitions";
-import { getTotalBookmarks } from "@/app/_data/bookmarks";
+import { getFilteredBookmarks, getTotalBookmarks } from "@/app/_data/bookmarks";
+import Search from "@/app/_ui/components/search";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,8 +43,11 @@ function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
   );
 }
 
-export default function Bookmarks() {
+export default function Bookmarks({ searchParams }: { searchParams?: { query?: string } }) {
   const totalBookmarks = getTotalBookmarks();
+
+  const searchQuery = searchParams?.query || "";
+  const filteredBookmarks = getFilteredBookmarks(searchQuery);
 
   return (
     <main className="w-full py-4">
@@ -53,8 +56,11 @@ export default function Bookmarks() {
           <h2 className="font-medium">Bookmarks</h2>
           <p className="text-muted-foreground">{totalBookmarks}</p>
         </header>
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {bookmarks.map((bookmarkItem) => {
+        <div className="md:max-w-80">
+          <Search placeholder="Search" />
+        </div>
+        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredBookmarks.map((bookmarkItem) => {
             const key = `bookmark-${bookmarkItem.label}`;
             const faviconUrl = getFaviconFromWebsite(bookmarkItem.href, 64);
 
