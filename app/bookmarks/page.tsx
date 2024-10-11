@@ -3,7 +3,7 @@ import Image from "next/image";
 import { EllipsisVerticalIcon, ExternalLinkIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { getFaviconFromWebsite } from "@/app/_lib/utils";
 import type { Bookmark } from "@/app/_lib/definitions";
-import { getFilteredBookmarks, getTotalBookmarks } from "@/app/_data/bookmarks";
+import { getFilteredBookmarks } from "@/app/_data/bookmarks";
 import Search from "@/app/_ui/components/search";
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/app/_ui/components/core/dropdown-menu";
+import AddBookmarkButton from "@/app/_ui/components/bookmarks/add-button";
 
 function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
   return (
@@ -58,8 +59,11 @@ export default function Bookmarks({ searchParams }: { searchParams?: { query?: s
           <h2 className="font-medium">Bookmarks</h2>
           <p className="text-muted-foreground">{totalBookmarks}</p>
         </header>
-        <div className="md:max-w-80">
-          <Search placeholder="Search" />
+        <div className="flex justify-between space-x-3">
+          <div className="w-full md:max-w-80">
+            <Search placeholder="Search" />
+          </div>
+          <AddBookmarkButton />
         </div>
 
         {!hasBookmarks && <p className="my-6 text-muted-foreground">No bookmarks were found.</p>}
