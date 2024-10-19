@@ -1,6 +1,12 @@
 const { navigationRoutes } = require("../_lib/config");
 
-const users = [];
+const users = [
+  {
+    name: "Demo Account",
+    email: "demoaccount@cloud.com",
+    password: "d3m0@cc0unt1234!",
+  },
+];
 
 const bookmarks = [
   {
