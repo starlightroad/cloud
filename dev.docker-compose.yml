@@ -1,0 +1,31 @@
+services:
+  web:
+    container_name: cloud_web_dev
+    image: ghcr.io/starlightroad/cloud-dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    env_file:
+      - .env.dev.local
+      - .env.dev.db.local
+      - .env.prisma.local
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app/app
+      - ./public:/app/public
+  db:
+    container_name: cloud_db_dev
+    image: postgres:alpine
+    env_file:
+      - .env.dev.db.local
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data_dev:/var/lib/postgresql/data
+volumes:
+  db_data_dev:

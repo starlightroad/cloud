@@ -7,8 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:migrate": "dotenv -e .env.db.local -- npx prisma migrate deploy",
-    "prisma:seed": "dotenv -e .env.db.local -- npx prisma db seed"
+    "dev:prisma:migrate": "dotenv -e .env.dev.db.local -- npx prisma migrate deploy",
+    "dev:prisma:seed": "dotenv -e .env.dev.db.local -- npx prisma db seed",
+    "dev:dockerfile": "npm run dev:prisma:migrate && npm run dev:prisma:seed && npm run dev",
+    "dev:compose:up": "docker compose -f dev.docker-compose.yml up -d",
+    "dev:compose:down": "docker compose -f dev.docker-compose.yml down",
+    "prod:prisma:migrate": "dotenv -e .env.prod.db.local -- npx prisma migrate deploy",
+    "prod:prisma:seed": "dotenv -e .env.prod.db.local -- npx prisma db seed",
+    "prod:dockerfile": "npm run prod:prisma:migrate && npm run prod:prisma:seed && npm run start",
+    "prod:compose:up": "docker compose -f dev.docker-compose.yml up -d",
+    "prod:compose:down": "docker compose -f dev.docker-compose.yml down"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
