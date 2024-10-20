@@ -21,7 +21,7 @@ const seedUsers = async () => {
 
     const seededCount = insertedUsers.length;
 
-    console.log(`Seeded ${seededCount} ${seededCount-- - 1 ? "user" : "users"}.`);
+    console.log(`✅ Seeded ${seededCount} ${seededCount === 1 ? "user" : "users"}.`);
   } catch (error) {
     console.error("Failed to seed users:", error);
     throw error;
@@ -54,7 +54,7 @@ const seedBookmarks = async () => {
 
     const seededCount = insertedBookmarks.length;
 
-    console.log(`Seeded ${seededCount} ${seededCount === 1 ? "bookmark" : "bookmarks"}.`);
+    console.log(`✅ Seeded ${seededCount} ${seededCount === 1 ? "bookmark" : "bookmarks"}.`);
   } catch (error) {
     console.error("Failed to seed bookmarks:", error);
     throw error;
@@ -78,7 +78,7 @@ const seedCategories = async () => {
 
     const seededCount = insertedCategories.length;
 
-    console.log(`Seeded ${seededCount} ${seededCount === 1 ? "category" : "categories"}.`);
+    console.log(`✅ Seeded ${seededCount} ${seededCount === 1 ? "category" : "categories"}.`);
   } catch (error) {
     console.error("Failed to seed categories:", error);
     throw error;
@@ -95,19 +95,10 @@ const getUserFromDb = async (email) => {
   return dbUser;
 };
 
-const checkIfSeedingIsRequired = async () => {
-  const numberOfUsers = await client.user.count();
-  return numberOfUsers > 0 ? false : true;
-};
-
 const init = async () => {
-  const isSeedingRequired = await checkIfSeedingIsRequired();
-
-  if (isSeedingRequired) {
-    await seedUsers();
-    await seedCategories();
-    await seedBookmarks();
-  }
+  await seedUsers();
+  await seedCategories();
+  await seedBookmarks();
 };
 
 init()
