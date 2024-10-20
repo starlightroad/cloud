@@ -25,7 +25,7 @@ function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={bookmark.href} target="_blank">
+            <Link href={bookmark.url} target="_blank">
               <ExternalLinkIcon size={16} className="mr-2" />
               <span>View</span>
             </Link>
@@ -44,9 +44,9 @@ function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
   );
 }
 
-export default function Bookmarks({ searchParams }: { searchParams?: { query?: string } }) {
+export default async function Bookmarks({ searchParams }: { searchParams?: { query?: string } }) {
   const searchQuery = searchParams?.query || "";
-  const filteredBookmarks = getFilteredBookmarks(searchQuery);
+  const filteredBookmarks = await getFilteredBookmarks(searchQuery);
 
   const totalBookmarks = filteredBookmarks.length;
 
@@ -71,27 +71,27 @@ export default function Bookmarks({ searchParams }: { searchParams?: { query?: s
         {hasBookmarks && (
           <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredBookmarks.map((bookmarkItem) => {
-              const key = `bookmark-${bookmarkItem.label}`;
-              const faviconUrl = getFaviconFromWebsite(bookmarkItem.href, 64);
+              const key = `bookmark-${bookmarkItem.name}`;
+              const faviconUrl = getFaviconFromWebsite(bookmarkItem.url, 64);
 
               return (
                 <li key={key} className="relative">
                   <BookmarkMenu bookmark={bookmarkItem} />
                   <Link
-                    href={bookmarkItem.href}
+                    href={bookmarkItem.url}
                     target="_blank"
                     className="block h-36 rounded-2xl bg-accent p-6"
                   >
                     <div className="flex items-center justify-between">
                       <Image
                         src={faviconUrl}
-                        alt={`The brand logo for ${bookmarkItem.label}`}
+                        alt={`The brand logo for ${bookmarkItem.name}`}
                         width={20}
                         height={20}
                       />
                       <EllipsisVerticalIcon size={20} className="hidden" />
                     </div>
-                    <p className="mt-4 font-medium">{bookmarkItem.label}</p>
+                    <p className="mt-4 font-medium">{bookmarkItem.name}</p>
                   </Link>
                 </li>
               );

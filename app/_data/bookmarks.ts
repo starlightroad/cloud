@@ -1,13 +1,27 @@
-import { bookmarks } from "@/app/_data/placeholder-data";
+import prisma from "@/prisma/client";
 
-export const getTotalBookmarks = () => {
-  return bookmarks.length;
+export const getTotalBookmarks = async () => {
+  try {
+    const bookmarksCount = await prisma.bookmark.count();
+    return bookmarksCount;
+  } catch (error) {
+    throw new Error("Failed to Get Total Bookmarks.");
+  }
 };
 
-export const getFilteredBookmarks = (query: string) => {
-  const filteredBookmarks = bookmarks.filter((bookmark) =>
-    bookmark.label.toLowerCase().includes(query.toLowerCase()),
-  );
+export const getFilteredBookmarks = async (query: string) => {
+  try {
+    const filteredBookmarks = await prisma.bookmark.findMany({
+      where: {
+        name: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+    });
 
-  return filteredBookmarks;
+    return filteredBookmarks;
+  } catch (error) {
+    throw new Error("Failed to Get Filtered Bookmarks.");
+  }
 };

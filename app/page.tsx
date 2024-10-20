@@ -30,9 +30,9 @@ export default function Home() {
       <section className="px-4">
         <h2 className="my-6 font-medium">Home</h2>
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {listItems.map((listItem) => {
+          {listItems.map(async (listItem) => {
             const key = `list-item-${listItem.label}`;
-            const totalCount = listItem.getTotalCount();
+            const totalCount = await listItem.getTotalCount();
             const totalCountLabel = `${totalCount} ${totalCount === 1 ? "item" : "items"}`;
 
             return (
