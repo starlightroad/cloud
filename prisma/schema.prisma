@@ -10,9 +10,11 @@ datasource db {
 model Bookmark {
   id         String    @id @default(cuid())
   categoryId String?   @map("category_id")
+  userId     String    @map("user_id")
   name       String
   url        String
   category   Category? @relation(fields: [categoryId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
 
@@ -21,10 +23,25 @@ model Bookmark {
 
 model Category {
   id        String     @id @default(cuid())
+  userId    String     @map("user_id")
   name      String
   bookmarks Bookmark[]
+  user      User       @relation(fields: [userId], references: [id])
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
 
   @@map("category")
+}
+
+model User {
+  id         String     @id @default(cuid())
+  name       String     @db.VarChar(100)
+  email      String     @unique @db.VarChar(80)
+  password   String     @db.VarChar(72)
+  bookmarks  Bookmark[]
+  categories Category[]
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+
+  @@map("user")
 }
