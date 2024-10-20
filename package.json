@@ -9,7 +9,6 @@
     "lint": "next lint",
     "dev:prisma:migrate": "dotenv -e .env.dev.db.local -e .env.prisma.local -- npx prisma migrate dev",
     "dev:prisma:seed": "dotenv -e .env.dev.db.local -e .env.prisma.local -- npx prisma db seed",
-    "dev:dockerfile": "npm run dev:prisma:migrate && npm run dev:prisma:seed && npm run dev",
     "dev:compose:up": "docker compose -f dev.docker-compose.yml up -d",
     "dev:compose:down": "docker compose -f dev.docker-compose.yml down",
     "prod:prisma:migrate": "dotenv -e .env.prod.db.local -- npx prisma migrate deploy",
