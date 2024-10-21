@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/_ui/components/core/dropdown-menu";
 import AddBookmarkButton from "@/app/_ui/components/bookmarks/add-button";
+import { TablePagination } from "@/app/_ui/components/bookmarks/pagination";
+import { ITEMS_PER_PAGE } from "@/app/_lib/constants";
 
 function BookmarkMenu({ bookmark }: { bookmark: Bookmark }) {
   return (
@@ -51,6 +53,8 @@ export default async function Bookmarks({ searchParams }: { searchParams?: { que
   const totalBookmarks = filteredBookmarks.length;
 
   const hasBookmarks = !!filteredBookmarks.length;
+
+  const pageCount = Math.ceil(totalBookmarks / ITEMS_PER_PAGE);
 
   return (
     <main className="w-full py-4">
@@ -98,6 +102,8 @@ export default async function Bookmarks({ searchParams }: { searchParams?: { que
             })}
           </ul>
         )}
+
+        {hasBookmarks && <TablePagination pageCount={pageCount} />}
       </section>
     </main>
   );

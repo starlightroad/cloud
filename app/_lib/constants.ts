@@ -7,3 +7,5 @@ export const PUBLIC_ROUTES = [
 ];
 
 export const G_FAVICON_URL = "https://s2.googleusercontent.com/s2/favicons";
+
+export const ITEMS_PER_PAGE = 6;
